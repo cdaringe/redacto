@@ -1,0 +1,28 @@
+;dune
+(env
+ (dev
+  (flags
+   (:standard -w +42)))
+ (release
+  (flags
+   (:standard -O3))))
+
+(library
+ (name replacements)
+ (libraries core async stdio re2)
+ (modules replacements))
+
+(library
+ (name redactor)
+ (libraries replacements core async stdio re2)
+ (modules redactor))
+
+(executable
+ (name redacto)
+ (libraries async redactor)
+ (modules redacto))
+
+(test
+ (name test)
+ (libraries ounit2 redactor)
+ (modules test randocommando))
